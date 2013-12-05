@@ -21,7 +21,9 @@
 
     <packaging>pom</packaging>
     <modules>
-
+        <module>core-beans</module>
+        <module>decoder</module>
+        <module>campaign-management-ui</module>
     </modules>
 
     <dependencies>
