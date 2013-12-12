@@ -1,0 +1,44 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:decoder.properties"/>
+
+    <context:component-scan base-package="com.cmr.decoder"/>
+
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="voiceCallUploadManagerServiceTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Quartz -->
+    <bean id="voiceCallUploadManagerServiceTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="voiceCallTransactionManager"/>
+        <property name="cronExpression" value="${voice.call.upload.cron.expression}"/>
+    </bean>
+
+    <bean id="voiceCallTransactionManager"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="voiceCallUploadObjectTarget"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+
+    <bean id="voiceCallUploadObjectTarget" class="com.cmr.decoder.scheduler.impl.VoiceCallEventScheduler">
+        <property name="poolSize" value="${voice.call.upload.thread.pool.size}"/>
+        <property name="sourceDirectoryPath" value=""/>
+        <property name="fileNamePattern" value="${voice.call.upload.file.pattern}"/>
+    </bean>
+
+
+</beans>
