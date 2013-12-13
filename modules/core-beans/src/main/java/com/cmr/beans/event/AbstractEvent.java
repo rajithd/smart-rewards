@@ -6,6 +6,8 @@ package com.cmr.beans.event;
 public abstract class AbstractEvent {
 
     private String id;
+    private String callerId;
+    private String calleeId;
     private String userId;
     private Integer evenYear;
     private Integer eventMonth;
@@ -13,7 +15,7 @@ public abstract class AbstractEvent {
     private Integer eventHour;
     private Integer eventMinute;
     private Integer eventSeconds;
-    private Integer eventResults;
+    private String eventResults;
     private Integer originatingZoneCode;
     private Integer destinationZoneCode;
 
@@ -81,11 +83,11 @@ public abstract class AbstractEvent {
         this.eventSeconds = eventSeconds;
     }
 
-    public Integer getEventResults() {
+    public String getEventResults() {
         return eventResults;
     }
 
-    public void setEventResults(Integer eventResults) {
+    public void setEventResults(String eventResults) {
         this.eventResults = eventResults;
     }
 
@@ -105,5 +107,38 @@ public abstract class AbstractEvent {
         this.destinationZoneCode = destinationZoneCode;
     }
 
+    public String getCallerId() {
+        return callerId;
+    }
 
+    public void setCallerId(String callerId) {
+        this.callerId = callerId;
+    }
+
+    public String getCalleeId() {
+        return calleeId;
+    }
+
+    public void setCalleeId(String calleeId) {
+        this.calleeId = calleeId;
+    }
+
+    @Override
+    public String toString() {
+        return "AbstractEvent{" +
+                "id='" + id + '\'' +
+                ", callerId='" + callerId + '\'' +
+                ", calleeId='" + calleeId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", evenYear=" + evenYear +
+                ", eventMonth=" + eventMonth +
+                ", eventDayOfMonth=" + eventDayOfMonth +
+                ", eventHour=" + eventHour +
+                ", eventMinute=" + eventMinute +
+                ", eventSeconds=" + eventSeconds +
+                ", eventResults='" + eventResults + '\'' +
+                ", originatingZoneCode=" + originatingZoneCode +
+                ", destinationZoneCode=" + destinationZoneCode +
+                '}';
+    }
 }

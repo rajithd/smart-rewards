@@ -16,6 +16,14 @@
         <appassembler.basedir>target/generated-resources/appassembler/jsw/decoder</appassembler.basedir>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.cmr</groupId>
+            <artifactId>core-beans</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

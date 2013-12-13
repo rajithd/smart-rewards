@@ -36,8 +36,11 @@
 
     <bean id="voiceCallUploadObjectTarget" class="com.cmr.decoder.scheduler.impl.VoiceCallEventScheduler">
         <property name="poolSize" value="${voice.call.upload.thread.pool.size}"/>
-        <property name="sourceDirectoryPath" value=""/>
+        <property name="sourceDirectoryPath" value="${voice.call.upload.source.directory}"/>
         <property name="fileNamePattern" value="${voice.call.upload.file.pattern}"/>
+        <property name="archiveDirectoryPath" value="${voice.call.upload.archive.directory}"/>
+        <property name="rawBreaker" value="${voice.call.upload.row.breaker}"/>
+        <property name="columnSeparator" value="${voice.call.upload.column.separator}"/>
     </bean>
 
 
