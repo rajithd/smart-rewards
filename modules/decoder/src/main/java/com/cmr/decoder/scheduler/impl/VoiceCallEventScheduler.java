@@ -5,6 +5,7 @@ import com.cmr.decoder.scheduler.JobScheduler;
 import com.cmr.decoder.service.UploadServiceStrategy;
 import com.cmr.decoder.service.impl.VoiceCallUploadService;
 import com.cmr.decoder.util.FileHandler;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,6 +13,8 @@ import org.springframework.web.client.RestTemplate;
  * @author rajith
  */
 public class VoiceCallEventScheduler implements JobScheduler {
+
+    private final static org.slf4j.Logger logger = LoggerFactory.getLogger(VoiceCallEventScheduler.class);
 
     @Autowired
     private UploadServiceStrategy uploadServiceStrategy;
@@ -30,6 +33,7 @@ public class VoiceCallEventScheduler implements JobScheduler {
 
     @Override
     public void execute() {
+        logger.info("Voice call event scheduler starting to execute");
         uploadServiceStrategy.startUpload(new VoiceCallUploadService(poolSize, getFiles(),
                 sourceDirectoryPath, archiveDirectoryPath, columnSeparator, rawBreaker, restTemplate ,restConfig));
     }

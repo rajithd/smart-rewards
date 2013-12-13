@@ -49,6 +49,10 @@ public class VoiceCallUploadService implements UploadService {
 
     @Override
     public void upload() {
+        if(files.length == 0){
+            logger.info("Not found any new files. Exiting");
+            return;
+        }
         for (String file : files) {
             try {
                 logger.info("Started to process [{}] file", file);
