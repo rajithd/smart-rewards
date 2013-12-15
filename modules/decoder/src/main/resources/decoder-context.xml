@@ -14,6 +14,9 @@
         <property name="triggers">
             <list>
                 <ref bean="voiceCallUploadManagerServiceTrigger"/>
+                <ref bean="smsUploadManagerServiceTrigger"/>
+                <ref bean="registrationUploadManagerServiceTrigger"/>
+                <ref bean="activationUploadManagerServiceTrigger"/>
             </list>
         </property>
     </bean>
@@ -24,10 +27,57 @@
         <property name="cronExpression" value="${voice.call.upload.cron.expression}"/>
     </bean>
 
+    <bean id="smsUploadManagerServiceTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="smsTransactionManager"/>
+        <property name="cronExpression" value="${sms.upload.cron.expression}"/>
+    </bean>
+
+    <bean id="activationUploadManagerServiceTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="activationTransactionManager"/>
+        <property name="cronExpression" value="${activation.upload.cron.expression}"/>
+    </bean>
+
+    <bean id="registrationUploadManagerServiceTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="registrationTransactionManager"/>
+        <property name="cronExpression" value="${registration.upload.cron.expression}"/>
+    </bean>
+
     <bean id="voiceCallTransactionManager"
           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject">
             <ref bean="voiceCallUploadObjectTarget"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+
+    <bean id="smsTransactionManager"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="smsUploadObjectTarget"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+
+
+    <bean id="activationTransactionManager"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="activationUploadObjectTarget"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+
+
+    <bean id="registrationTransactionManager"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="registrationUploadObjectTarget"/>
         </property>
         <property name="targetMethod">
             <value>execute</value>
@@ -41,6 +91,33 @@
         <property name="archiveDirectoryPath" value="${voice.call.upload.archive.directory}"/>
         <property name="rawBreaker" value="${voice.call.upload.row.breaker}"/>
         <property name="columnSeparator" value="${voice.call.upload.column.separator}"/>
+    </bean>
+
+    <bean id="smsUploadObjectTarget" class="com.cmr.decoder.scheduler.impl.SMSEventScheduler">
+        <property name="poolSize" value="${sms.upload.thread.pool.size}"/>
+        <property name="sourceDirectoryPath" value="${sms.upload.source.directory}"/>
+        <property name="fileNamePattern" value="${sms.upload.file.pattern}"/>
+        <property name="archiveDirectoryPath" value="${sms.upload.archive.directory}"/>
+        <property name="rawBreaker" value="${sms.upload.row.breaker}"/>
+        <property name="columnSeparator" value="${sms.upload.column.separator}"/>
+    </bean>
+
+    <bean id="activationUploadObjectTarget" class="com.cmr.decoder.scheduler.impl.ActivationEventScheduler">
+        <property name="poolSize" value="${activation.upload.thread.pool.size}"/>
+        <property name="sourceDirectoryPath" value="${activation.upload.source.directory}"/>
+        <property name="fileNamePattern" value="${activation.upload.file.pattern}"/>
+        <property name="archiveDirectoryPath" value="${activation.upload.archive.directory}"/>
+        <property name="rawBreaker" value="${activation.upload.row.breaker}"/>
+        <property name="columnSeparator" value="${activation.upload.column.separator}"/>
+    </bean>
+
+    <bean id="registrationUploadObjectTarget" class="com.cmr.decoder.scheduler.impl.RegistrationEventScheduler">
+        <property name="poolSize" value="${registration.upload.thread.pool.size}"/>
+        <property name="sourceDirectoryPath" value="${registration.upload.source.directory}"/>
+        <property name="fileNamePattern" value="${registration.upload.file.pattern}"/>
+        <property name="archiveDirectoryPath" value="${registration.upload.archive.directory}"/>
+        <property name="rawBreaker" value="${registration.upload.row.breaker}"/>
+        <property name="columnSeparator" value="${registration.upload.column.separator}"/>
     </bean>
 
 

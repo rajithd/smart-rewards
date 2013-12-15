@@ -2,6 +2,9 @@ package com.cmr.api.controllers;
 
 import com.cmr.api.service.ReplicateService;
 import com.cmr.beans.common.Success;
+import com.cmr.beans.event.ActivationEvent;
+import com.cmr.beans.event.RegistrationEvent;
+import com.cmr.beans.event.SMSEvent;
 import com.cmr.beans.event.VoiceCallEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,4 +37,30 @@ public class DecoderController extends AbstractController {
         return new ResponseEntity<Success>(Success.SUCCESS_CODE, HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/replicate/sms", produces = "application/json")
+    @ResponseBody
+    public ResponseEntity replicateSMSEvent(@RequestBody SMSEvent smsEvent){
+        logger.info("Processing sms event request");
+        replicateService.replicateSMSEvents(smsEvent);
+        logger.info("Successfully Processed sms event request");
+        return new ResponseEntity<Success>(Success.SUCCESS_CODE, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/replicate/activation", produces = "application/json")
+    @ResponseBody
+    public ResponseEntity replicateActivationEvent(@RequestBody ActivationEvent activationEvent){
+        logger.info("Processing activation event request");
+        replicateService.replicateActivationEvent(activationEvent);
+        logger.info("Successfully Processed activation event request");
+        return new ResponseEntity<Success>(Success.SUCCESS_CODE, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/replicate/register", produces = "application/json")
+    @ResponseBody
+    public ResponseEntity replicateRegistrationEvent(@RequestBody RegistrationEvent registrationEvent){
+        logger.info("Processing registration event request");
+        replicateService.replicateRegistrationEvent(registrationEvent);
+        logger.info("Successfully Processed registration event request");
+        return new ResponseEntity<Success>(Success.SUCCESS_CODE, HttpStatus.OK);
+    }
 }

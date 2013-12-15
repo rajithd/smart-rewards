@@ -8,7 +8,17 @@ public final class EventFactory {
     private EventFactory() {
     }
 
-    public static AbstractEvent buildEvent(EventTypeEnum event) {
+    public static AbstractEvent buildEventWithValues(EventTypeEnum event, String[] columnValues){
+        AbstractEvent abstractEvent = buildEvent(event);
+        abstractEvent.setId(columnValues[0]);
+        abstractEvent.setCallerId(columnValues[1]);
+        abstractEvent.setCalleeId(columnValues[2]);
+
+        //TODO fill values
+        return abstractEvent;
+    }
+
+    private static AbstractEvent buildEvent(EventTypeEnum event) {
         switch (event) {
             case VOICE_CALL_EVENT:
                 return new VoiceCallEvent();

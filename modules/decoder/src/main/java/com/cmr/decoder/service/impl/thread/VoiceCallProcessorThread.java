@@ -1,10 +1,11 @@
-package com.cmr.decoder.service.impl;
+package com.cmr.decoder.service.impl.thread;
 
-import com.cmr.beans.event.AbstractEvent;
 import com.cmr.beans.event.EventFactory;
 import com.cmr.beans.event.EventTypeEnum;
 import com.cmr.beans.event.VoiceCallEvent;
 import com.cmr.decoder.config.RestConfig;
+import com.cmr.decoder.util.UrlHandler;
+import com.cmr.util.Constants;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,25 +32,12 @@ public class VoiceCallProcessorThread implements Runnable {
     public void run() {
         logger.info("Try to split values from record");
         String[] columnValues = record.split(columnSeparator);
-        VoiceCallEvent callEvent = createVoiceCallEvent(columnValues);
+        VoiceCallEvent callEvent = (VoiceCallEvent) EventFactory.buildEventWithValues(EventTypeEnum.VOICE_CALL_EVENT, columnValues);
         logger.info("Sending voice call : [{}] to save", callEvent);
-        String url = createUrl("replicatevoicecall");
+        String url = UrlHandler.createUrl(Constants.ESB_SERVICE_VOICE_CALL, restConfig);
         logger.info("Create URL as : [{}]", url);
         String entity = restTemplate.postForObject(url, callEvent, String.class);
         logger.info("Received response : [{}]", entity);
     }
 
-    private VoiceCallEvent createVoiceCallEvent(String[] columnValues) {
-        AbstractEvent event = EventFactory.buildEvent(EventTypeEnum.VOICE_CALL_EVENT);
-        VoiceCallEvent voiceCallEvent = (VoiceCallEvent) event;
-        voiceCallEvent.setId(columnValues[0]);
-        voiceCallEvent.setCalleeId(columnValues[1]);
-        voiceCallEvent.setCalleeId(columnValues[2]);
-        voiceCallEvent.setEventResults(columnValues[5]);
-        return voiceCallEvent;
-    }
-
-    public String createUrl(String proxyName) {
-        return restConfig.getApiHostUrl() + restConfig.getEsbService() + proxyName;
-    }
 }

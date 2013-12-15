@@ -21,6 +21,15 @@ public class MongoDBConfig {
     @Value("${smart.rewards.events.voice.call.collection}")
     private String voiceCallCollectionName;
 
+    @Value("${smart.rewards.events.sms.collection}")
+    private String smsEventCollectionName;
+
+    @Value("${smart.rewards.events.activation.collection}")
+    private String activationCollectionName;
+
+    @Value("${smart.rewards.events.registration.collection}")
+    private String registrationCollectionName;
+
     public String getMongoHost() {
         return mongoHost;
     }
@@ -35,5 +44,17 @@ public class MongoDBConfig {
 
     public String getVoiceCallCollectionName() {
         return voiceCallCollectionName;
+    }
+
+    public String getSmsEventCollectionName() {
+        return smsEventCollectionName;
+    }
+
+    public String getActivationCollectionName() {
+        return activationCollectionName;
+    }
+
+    public String getRegistrationCollectionName() {
+        return registrationCollectionName;
     }
 }

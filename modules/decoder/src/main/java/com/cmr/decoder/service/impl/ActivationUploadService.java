@@ -2,7 +2,8 @@ package com.cmr.decoder.service.impl;
 
 import com.cmr.decoder.config.RestConfig;
 import com.cmr.decoder.service.UploadService;
-import com.cmr.decoder.service.impl.thread.VoiceCallProcessorThread;
+import com.cmr.decoder.service.impl.thread.ActivationProcessorThread;
+import com.cmr.decoder.service.impl.thread.SMSProcessorThread;
 import com.cmr.decoder.util.FileHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +22,9 @@ import java.util.concurrent.Executors;
 /**
  * @author rajith
  */
-public class VoiceCallUploadService implements UploadService {
+public class ActivationUploadService implements UploadService {
 
-    private static final Logger logger = LoggerFactory.getLogger(VoiceCallUploadService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ActivationUploadService.class);
     private static final CharsetDecoder decoder = Charset.forName("ISO-8859-1").newDecoder();
 
     private String[] files;
@@ -36,8 +37,8 @@ public class VoiceCallUploadService implements UploadService {
     private RestTemplate restTemplate;
     private RestConfig restConfig;
 
-    public VoiceCallUploadService(int poolSize, String[] files, String sourceDirectoryPath, String archiveDirectoryPath,
-                                  String columnSeparator, String rawBreaker, RestTemplate restTemplate, RestConfig restConfig) {
+    public ActivationUploadService(int poolSize, String[] files, String sourceDirectoryPath, String archiveDirectoryPath,
+                                   String columnSeparator, String rawBreaker, RestTemplate restTemplate, RestConfig restConfig) {
         this.files = files;
         pool = Executors.newFixedThreadPool(poolSize);
         this.sourceDirectoryPath = sourceDirectoryPath;
@@ -84,7 +85,7 @@ public class VoiceCallUploadService implements UploadService {
                 character = charBuffer.get();
                 builder.append(character);
                 if (character == rawBreaker.charAt(0)) {
-                    pool.execute(new VoiceCallProcessorThread(builder.toString(),
+                    pool.execute(new ActivationProcessorThread(builder.toString(),
                             columnSeparator,restTemplate, restConfig));
                     builder = new StringBuilder();
                 }

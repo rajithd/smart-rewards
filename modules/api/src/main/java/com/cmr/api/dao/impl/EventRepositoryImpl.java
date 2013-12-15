@@ -2,9 +2,7 @@ package com.cmr.api.dao.impl;
 
 import com.cmr.api.dao.EventRepository;
 import com.cmr.api.dao.config.MongoDBConfig;
-import com.cmr.beans.event.AbstractEvent;
-import com.cmr.beans.event.EventTypeEnum;
-import com.cmr.beans.event.VoiceCallEvent;
+import com.cmr.beans.event.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +31,15 @@ public class EventRepositoryImpl implements EventRepository {
         if(abstractEvent instanceof VoiceCallEvent){
             logger.info("Try to save voice call event type");
             mongoTemplate.insert(abstractEvent, mongoDBConfig.getVoiceCallCollectionName());
+        } else if(abstractEvent instanceof SMSEvent){
+            logger.info("Try to save sms event type");
+            mongoTemplate.insert(abstractEvent, mongoDBConfig.getSmsEventCollectionName());
+        } else if(abstractEvent instanceof ActivationEvent){
+            logger.info("Try to save activation event type");
+            mongoTemplate.insert(abstractEvent, mongoDBConfig.getActivationCollectionName());
+        } else if(abstractEvent instanceof RegistrationEvent){
+            logger.info("Try to save registration event type");
+            mongoTemplate.insert(abstractEvent, mongoDBConfig.getRegistrationCollectionName());
         }
 
     }
