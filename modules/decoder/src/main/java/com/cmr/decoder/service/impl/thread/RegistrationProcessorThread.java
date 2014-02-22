@@ -1,12 +1,11 @@
 package com.cmr.decoder.service.impl.thread;
 
-import com.cmr.beans.event.ActivationEvent;
 import com.cmr.beans.event.EventFactory;
 import com.cmr.beans.event.EventTypeEnum;
 import com.cmr.beans.event.RegistrationEvent;
 import com.cmr.decoder.config.RestConfig;
-import com.cmr.decoder.util.UrlHandler;
 import com.cmr.util.Constants;
+import com.cmr.util.UrlHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -36,7 +35,7 @@ public class RegistrationProcessorThread implements Runnable {
         String[] columnValues = record.split(columnSeparator);
         RegistrationEvent registrationEvent = (RegistrationEvent) EventFactory.buildEventWithValues(EventTypeEnum.REGISTRATION_EVENT, columnValues);
         logger.info("Sending registration events : [{}] to save", registrationEvent);
-        String url = UrlHandler.createUrl(Constants.ESB_SERVICE_REGISTRATION, restConfig);
+        String url = UrlHandler.createUrl(Constants.ESB_SERVICE_REGISTRATION, restConfig.getApiHostUrl(), restConfig.getEsbService());
         logger.info("Create URL as : [{}]", url);
         String entity = restTemplate.postForObject(url, registrationEvent, String.class);
         logger.info("Received response : [{}]", entity);

@@ -13,7 +13,7 @@
     <name>rule-engine</name>
 
     <properties>
-        <appassembler.basedir>target/generated-resources/appassembler/jsw/decoder</appassembler.basedir>
+        <appassembler.basedir>target/generated-resources/appassembler/jsw/rule-engine</appassembler.basedir>
     </properties>
 
     <dependencies>
@@ -44,7 +44,7 @@
                     </defaultJvmSettings>
                     <daemons>
                         <daemon>
-                            <id>decoder</id>
+                            <id>rule-engine</id>
                             <mainClass>com.cmr.rule.boot.RuleEngineStarter</mainClass>
                             <platforms>
                                 <platform>jsw</platform>

@@ -11,4 +11,16 @@ public interface Constants {
     public final static String ESB_SERVICE_SMS = "replicatesms";
     public final static String ESB_SERVICE_ACTIVATION = "replicateactivation";
     public final static String ESB_SERVICE_REGISTRATION = "replicateregistration";
+
+    /**
+     * Rule Engine related constants
+     */
+    public final static String ESB_RULE_FIND_ALL_COLLECTION_NAMES = "getAllCollections";
+    public final static String ESB_RULE_FIND_COLUMNS_BY_NAME = "getCollectionColumnsByName";
+
+    public final static String COLLECTION_SYSTEM_INDEX = "system.indexes";
+    public final static String COLLECTION_CLASS_COL_NAME = "_class";
+    public final static String COLLECTION_CLASS_ID_NAME = "_id";
+    public final static String COLLECTION_CLASS_ID_NEW_NAME = "id";
+
 }

@@ -10,8 +10,17 @@ import java.util.List;
  */
 public interface EventRepository {
 
+    /**
+     * Save event
+     * @param abstractEvent
+     */
     public void save(AbstractEvent abstractEvent);
 
+    /**
+     * Find events by event type
+     * @param eventTypeEnum
+     * @return
+     */
     public List<AbstractEvent> findEventsByEventType(EventTypeEnum eventTypeEnum);
 
 }

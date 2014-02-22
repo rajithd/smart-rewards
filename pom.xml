@@ -278,6 +278,24 @@
             <version>1.7.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-jdbc</artifactId>
+            <version>0.9.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.hadoop</groupId>
+                    <artifactId>hadoop-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-core</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+
         <!--Test-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -394,6 +412,11 @@
             <id>repository.jboss.org-public</id>
             <name>JBoss.org Maven repository</name>
             <url>https://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>repository.cloudera.com</id>
+            <name>repository.cloudera.com-releases</name>
+            <url>https://repository.cloudera.com/artifactory/datanucleus</url>
         </repository>
     </repositories>
 </project>

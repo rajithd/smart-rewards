@@ -4,8 +4,8 @@ import com.cmr.beans.event.EventFactory;
 import com.cmr.beans.event.EventTypeEnum;
 import com.cmr.beans.event.VoiceCallEvent;
 import com.cmr.decoder.config.RestConfig;
-import com.cmr.decoder.util.UrlHandler;
 import com.cmr.util.Constants;
+import com.cmr.util.UrlHandler;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,7 +34,7 @@ public class VoiceCallProcessorThread implements Runnable {
         String[] columnValues = record.split(columnSeparator);
         VoiceCallEvent callEvent = (VoiceCallEvent) EventFactory.buildEventWithValues(EventTypeEnum.VOICE_CALL_EVENT, columnValues);
         logger.info("Sending voice call : [{}] to save", callEvent);
-        String url = UrlHandler.createUrl(Constants.ESB_SERVICE_VOICE_CALL, restConfig);
+        String url = UrlHandler.createUrl(Constants.ESB_SERVICE_VOICE_CALL, restConfig.getApiHostUrl(), restConfig.getEsbService());
         logger.info("Create URL as : [{}]", url);
         String entity = restTemplate.postForObject(url, callEvent, String.class);
         logger.info("Received response : [{}]", entity);

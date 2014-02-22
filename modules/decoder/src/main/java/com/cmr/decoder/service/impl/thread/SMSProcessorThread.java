@@ -4,8 +4,8 @@ import com.cmr.beans.event.EventFactory;
 import com.cmr.beans.event.EventTypeEnum;
 import com.cmr.beans.event.SMSEvent;
 import com.cmr.decoder.config.RestConfig;
-import com.cmr.decoder.util.UrlHandler;
 import com.cmr.util.Constants;
+import com.cmr.util.UrlHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -35,7 +35,7 @@ public class SMSProcessorThread implements Runnable {
         String[] columnValues = record.split(columnSeparator);
         SMSEvent smsEvent = (SMSEvent) EventFactory.buildEventWithValues(EventTypeEnum.SMS_EVENT, columnValues);
         logger.info("Sending sms events : [{}] to save", smsEvent);
-        String url = UrlHandler.createUrl(Constants.ESB_SERVICE_SMS, restConfig);
+        String url = UrlHandler.createUrl(Constants.ESB_SERVICE_SMS, restConfig.getApiHostUrl(), restConfig.getEsbService());
         logger.info("Create URL as : [{}]", url);
         String entity = restTemplate.postForObject(url, smsEvent, String.class);
         logger.info("Received response : [{}]", entity);
