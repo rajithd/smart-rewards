@@ -21,6 +21,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>core-beans</module>
+        <module>auth</module>
         <module>api</module>
         <module>decoder</module>
         <module>campaign-management-ui</module>
