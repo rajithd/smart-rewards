@@ -24,6 +24,7 @@
         <module>api</module>
         <module>decoder</module>
         <module>campaign-management-ui</module>
+        <module>rule-engine</module>
     </modules>
 
     <dependencies>
