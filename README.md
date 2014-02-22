@@ -1,3 +1,5 @@
+Ref : https://github.com/rajithd/smart-rewards/blob/master/README.md
+
 # Components
 1. Campaign-management UI (war)
 2. Decoder - Standalone
@@ -12,6 +14,7 @@
 4. Perl 5 or above
 5. Apache Hadoop 1.2.1
 6. Apache Hive
+7. MongoDB
 
 # Server setup
 ## 1. Hadoop Setup
@@ -33,7 +36,10 @@
 
 ## 2. Hive Setup
 1. Extract hive-0.11.0.tar.gz located in smart-rewards/distribution by `tar-zxvf hive-0.11.0.tar.gz`
-2. Start hive server by `./hiveserver2`
+2. Start hive server by `./hive --service hiveserver`
+
+## 3. Mongo Setup
+1. Please follow this : http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
 
 
 
