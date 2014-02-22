@@ -14,10 +14,10 @@
 6. Hive
 
 # Server setup
-## Hadoop Setup
+## 1. Hadoop Setup
 1. Extract hadoop-2.2.0.tar.gz by 'tar -zxvf hadoop-2.2.0.tar.gz'
 2. Open '~/.bashrc' file and add following lines.
-   'HADOOP_HOME=/path/to/hadoop-2.2.0'
+   `HADOOP_HOME=/path/to/hadoop-2.2.0`
    'PATH=$PATH:$HADOOP_HOME/bin'
    'source ~/.bashrc'
 
