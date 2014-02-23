@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SmartRewardsAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
+
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
 

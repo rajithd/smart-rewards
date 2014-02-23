@@ -414,6 +414,10 @@
             <url>https://repository.jboss.org/nexus/content/groups/public</url>
         </repository>
         <repository>
+            <id>cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+        </repository>
+        <repository>
             <id>repository.cloudera.com</id>
             <name>repository.cloudera.com-releases</name>
             <url>https://repository.cloudera.com/artifactory/datanucleus</url>

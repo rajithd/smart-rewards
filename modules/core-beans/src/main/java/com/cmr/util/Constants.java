@@ -23,4 +23,11 @@ public interface Constants {
     public final static String COLLECTION_CLASS_ID_NAME = "_id";
     public final static String COLLECTION_CLASS_ID_NEW_NAME = "id";
 
+
+    /**
+     * Auth related constants
+     */
+    public final static String USER_TYPE_ADMIN = "ADMIN";
+    public final static String USER_TYPE_MANAGER = "MANAGER";
+
 }

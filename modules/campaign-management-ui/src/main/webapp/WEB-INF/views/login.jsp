@@ -1,9 +1,9 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Sign in &middot; Twitter Bootstrap</title>
+    <title>Sign in</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -61,11 +61,16 @@
 <body>
 
 <div class="container">
-
-    <form class="form-signin">
+    <c:if test="${not empty param.error}">
+        <font color="red">
+            Login error. <br />
+            Reason : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+        </font>
+    </c:if>
+    <form class="form-signin" method="POST" action="<c:url value="/j_spring_security_check" />">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level" placeholder="Email address">
-        <input type="password" class="input-block-level" placeholder="Password">
+        <input type="text" class="input-block-level" placeholder="Email address" name="j_username">
+        <input type="password" class="input-block-level" placeholder="Password" name="j_password">
         <label class="checkbox">
             <input type="checkbox" value="remember-me"> Remember me
         </label>

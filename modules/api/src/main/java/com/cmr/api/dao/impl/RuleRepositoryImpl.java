@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapreduce.MapReduceResults;
 import org.springframework.stereotype.Repository;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 /**
