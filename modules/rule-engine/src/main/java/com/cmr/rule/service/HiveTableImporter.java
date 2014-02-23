@@ -1,5 +1,6 @@
 package com.cmr.rule.service;
 
+import com.cmr.util.Constants;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
@@ -17,22 +18,25 @@ public class HiveTableImporter {
 
     private final static org.slf4j.Logger logger = LoggerFactory.getLogger(HiveTableImporter.class);
 
-    public void dropAndCreateTable(Connection hiveConnection, String tableName, Set<String> columns) throws SQLException {
+    public void dropAndImportDataIntoTable(Connection hiveConnection, String tableName, Set<String> columns) throws SQLException {
         logger.info("Try to drop and create hive table : [{}]", tableName);
         dropHiveTable(hiveConnection, tableName);
-        createHiveTable(hiveConnection, tableName, columns);
+        createAndImportDataToHiveTable(hiveConnection, tableName, columns);
     }
 
     private void dropHiveTable(Connection hiveCon, String tableName) throws SQLException {
         Statement dropStmt = hiveCon.createStatement();
         dropStmt.execute("drop table " + tableName);
         dropStmt.close();
-        logger.info("Successfully drop table : [{}]",tableName);
+        logger.info("Successfully drop table : [{}]", tableName);
     }
 
-    private void createHiveTable(Connection hiveCon, String tableName, Set<String> columns) throws SQLException {
+    private void createAndImportDataToHiveTable(Connection hiveCon, String tableName, Set<String> columns) throws SQLException {
+        String mongoUri = "mongodb://localhost:27017/rewards." + tableName;
         List<String> list = new ArrayList<String>(columns);
-        logger.info("Try to create hive table : [{}]", tableName);
+        String colMappingJson = mapColumnsToHive(list);
+        logger.info("Hive columns mapping : [{}]", colMappingJson);
+        logger.info("Try to create and import data to hive table : [{}]", tableName);
         StringBuilder hiveDDLBuilder = new StringBuilder("create table ");
         hiveDDLBuilder.append(tableName);
         hiveDDLBuilder.append(" (");
@@ -46,8 +50,12 @@ public class HiveTableImporter {
             }
         }
         hiveDDLBuilder.append(")");
+        hiveDDLBuilder.append(" STORED BY \"com.mongodb.hadoop.hive.MongoStorageHandler\" ");
+        hiveDDLBuilder.append(" WITH SERDEPROPERTIES('mongo.columns.mapping'=' "+colMappingJson+" ')");
+        hiveDDLBuilder.append(" TBLPROPERTIES ( \"mongo.uri\" =  ");
+        hiveDDLBuilder.append("'" + mongoUri + "')");
 
-        logger.info("Hive Query: {}", hiveDDLBuilder.toString());
+        logger.info("Hive Query: [{}]", hiveDDLBuilder.toString());
 
         Statement stmt = hiveCon.createStatement();
         ResultSet res = null;
@@ -58,6 +66,24 @@ public class HiveTableImporter {
             stmt.close();
         }
 
+    }
+
+    private String mapColumnsToHive(List<String> columns) {
+        StringBuilder colMapperString = new StringBuilder();
+        colMapperString.append("{");
+        colMapperString.append("\"" +"id"+ "\""+":"+"\"" +"_id"+ "\""+",");
+        int i = 0;
+        for (; i < columns.size(); i++) {
+            if(Constants.COLLECTION_CLASS_ID_NEW_NAME.equals(columns.get(i)) || Constants.COLLECTION_CLASS_COL_NAME.equals(columns.get(i))){
+                continue;
+            }
+            colMapperString.append("\"" +columns.get(i)+ "\"" + ":" + "\"" +columns.get(i)+ "\"");
+            if (i < columns.size() - 1) {
+                colMapperString.append(",");
+            }
+        }
+        colMapperString.append("}");
+        return colMapperString.toString();
     }
 
 }

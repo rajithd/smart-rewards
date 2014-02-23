@@ -45,7 +45,7 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public List<AbstractEvent> findEventsByEventType(EventTypeEnum eventTypeEnum) {
-        return null;
+    public List<AbstractEvent> findEventsByEventType(EventTypeEnum eventTypeEnum, String collectionName) {
+        return (List<AbstractEvent>) mongoTemplate.findAll(EventFactory.buildEvent(eventTypeEnum).getClass(), collectionName);
     }
 }

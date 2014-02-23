@@ -19,8 +19,9 @@ public interface EventRepository {
     /**
      * Find events by event type
      * @param eventTypeEnum
+     * @param collectionName
      * @return
      */
-    public List<AbstractEvent> findEventsByEventType(EventTypeEnum eventTypeEnum);
+    public List<AbstractEvent> findEventsByEventType(EventTypeEnum eventTypeEnum, String collectionName);
 
 }

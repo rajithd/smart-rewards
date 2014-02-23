@@ -59,7 +59,7 @@ public class TableImporterCallable implements Callable {
 
         try {
             hiveConnection = hiveDataSource.getConnection();
-            hiveTableImporter.dropAndCreateTable(hiveConnection, tableName, colNames);
+            hiveTableImporter.dropAndImportDataIntoTable(hiveConnection, tableName, colNames);
         } finally {
             if (hiveConnection != null) {
                 try {

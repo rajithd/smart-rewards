@@ -18,7 +18,7 @@ public final class EventFactory {
         return abstractEvent;
     }
 
-    private static AbstractEvent buildEvent(EventTypeEnum event) {
+    public static AbstractEvent buildEvent(EventTypeEnum event) {
         switch (event) {
             case VOICE_CALL_EVENT:
                 return new VoiceCallEvent();

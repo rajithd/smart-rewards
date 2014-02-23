@@ -2,6 +2,7 @@ package com.cmr.api.controllers;
 
 import com.cmr.api.service.RuleService;
 import com.cmr.beans.common.Response;
+import com.cmr.beans.event.AbstractEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -42,6 +44,16 @@ public class RuleEngineController extends AbstractController {
         Set<String> strings = ruleService.getCollectionColumnsByName(collectionName);
         logger.info("Successfully process get collection columns request");
         return new Response(HttpStatus.OK.value(),strings);
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/rule/collection/data/{collectionName}", produces = "application/json")
+    @ResponseBody
+    public List<AbstractEvent> getCollectionDataByCollectionName(@PathVariable(value = "collectionName") String collectionName) {
+        logger.info("Processing get collection columns request");
+        List<AbstractEvent> events = ruleService.findEventsByEventType(collectionName);
+        logger.info("Successfully process get collection columns request");
+        return events;
     }
 
 
