@@ -34,6 +34,10 @@ public class UserAccount {
         this.roles = roles;
     }
 
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
     public String getUserType() {
         return userType;
     }

@@ -14,6 +14,7 @@
         <property name="triggers">
             <list>
                 <ref bean="hiveTableImporterServiceTrigger"/>
+                <ref bean="ruleExecutorServiceTrigger"/>
             </list>
         </property>
     </bean>
@@ -21,6 +22,11 @@
     <bean id="hiveTableImporterServiceTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="hiveTableImporterManager"/>
         <property name="cronExpression" value="${hive.table.import.cron.expression}"/>
+    </bean>
+
+    <bean id="ruleExecutorServiceTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="ruleExecutorManager"/>
+        <property name="cronExpression" value="${rule.executor.cron.expression}"/>
     </bean>
 
     <bean id="hiveTableImporterManager"
@@ -33,10 +39,21 @@
         </property>
     </bean>
 
+    <bean id="ruleExecutorManager"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="ruleExecutionScheduler"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+
     <bean id="hiveTableImporterScheduler" class="com.cmr.rule.scheduler.impl.HiveTableImporterScheduler">
 
     </bean>
 
+    <bean id="ruleExecutionScheduler" class="com.cmr.rule.scheduler.impl.RuleExecutionScheduler"/>
 
     <bean id="hiveDriver" class="org.apache.hadoop.hive.jdbc.HiveDriver"/>
 

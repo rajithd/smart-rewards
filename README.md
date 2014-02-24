@@ -39,7 +39,16 @@ Ref : https://github.com/rajithd/smart-rewards/blob/master/README.md
 2. Start hive server by `./hive --service hiveserver`
 
 ## 3. Mongo Setup
-1. Please follow this : http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
+    `cd smart-rewards/distribution`
+    `chmod 776 setup-mongo.sh`
+    `./setup-mongo.sh`
+
+## 4. Generate Java Keystore
+1. `cd smart-rewards/distribution/keystore`
+2. `javac InstallCert.java`
+3. `java InstallCert localhost:8443`
+4. Type 1
+5. `cp jssecacerts $JAVA_HOME/jre/lib/security`
 
 
 

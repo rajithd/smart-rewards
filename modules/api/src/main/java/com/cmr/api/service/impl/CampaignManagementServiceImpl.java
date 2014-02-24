@@ -9,6 +9,7 @@ import com.cmr.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,6 +32,7 @@ public class CampaignManagementServiceImpl implements CampaignManagementService 
             logger.error("UserAccount details null. Throwing API Exception");
             throw new APIException("1000", "Invalid user account details");
         }
+        userAccount.setPassword(hashedPassword(userAccount.getPassword()));
         String userType = userAccount.getUserType();
         logger.info("Found user type as  : [{}]", userType);
         if (Constants.USER_TYPE_ADMIN.equals(userType)) {
@@ -41,5 +43,10 @@ public class CampaignManagementServiceImpl implements CampaignManagementService 
         logger.info("Saving user : [{}]", userAccount.getUsername());
         userAccountRepository.save(userAccount);
 
+    }
+
+    private String hashedPassword(String password){
+        Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+        return encoder.encodePassword(password,null);
     }
 }

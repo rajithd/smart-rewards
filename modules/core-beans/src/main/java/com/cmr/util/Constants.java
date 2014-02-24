@@ -30,4 +30,10 @@ public interface Constants {
     public final static String USER_TYPE_ADMIN = "ADMIN";
     public final static String USER_TYPE_MANAGER = "MANAGER";
 
+    /**
+     * Campaign management related constants
+     */
+
+    public final static String ESB_SERVICE_CREATE_USER = "createUser";
+
 }

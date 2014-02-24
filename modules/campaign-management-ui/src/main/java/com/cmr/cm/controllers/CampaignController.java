@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author : rajith
  */
 @Controller
-public class HomeController extends AbstractController {
+public class CampaignController extends AbstractController {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/home")
-    public String redirectHome(){
-        return "home";
+    @RequestMapping(method = RequestMethod.GET, value = "/create-campaign")
+    public String redirectCreateCampaign(){
+        return "create-campaign";
     }
+
 }
