@@ -7,15 +7,15 @@ public interface Constants {
     /**
      * Decoder related constants
      */
-    public final static String ESB_SERVICE_VOICE_CALL = "replicatevoicecall";
-    public final static String ESB_SERVICE_SMS = "replicatesms";
-    public final static String ESB_SERVICE_ACTIVATION = "replicateactivation";
+    public final static String ESB_SERVICE_VOICE_CALL = "esb/replicate/voice/call";
+    public final static String ESB_SERVICE_SMS = "esb/replicate/sms";
+    public final static String ESB_SERVICE_ACTIVATION = "esb/replicate/activation";
     public final static String ESB_SERVICE_REGISTRATION = "replicateregistration";
 
     /**
      * Rule Engine related constants
      */
-    public final static String ESB_RULE_FIND_ALL_COLLECTION_NAMES = "getAllCollections";
+    public final static String ESB_RULE_FIND_ALL_COLLECTION_NAMES = "esb/get/collection/names";
     public final static String ESB_RULE_FIND_COLUMNS_BY_NAME = "getCollectionColumnsByName";
 
     public final static String COLLECTION_SYSTEM_INDEX = "system.indexes";
@@ -34,6 +34,7 @@ public interface Constants {
      * Campaign management related constants
      */
 
-    public final static String ESB_SERVICE_CREATE_USER = "createUser";
+    public final static String ESB_SERVICE_CREATE_USER = "esb/user/save";
+    public final static String ESB_SERVICE_CREATE_CAMPAIGN = "esb/campaign/save";
 
 }
