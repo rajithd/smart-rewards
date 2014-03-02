@@ -1,5 +1,7 @@
 package com.cmr.beans.campaign;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -9,13 +11,16 @@ public class Campaign {
     private String id;
     private String name;
     private String description;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
     private CampaignStatusEnum campaignStatus;
-    private String campaignRule;
     private WinnerSelectionTypeEnum winnerSelectionType;
     private Boolean isActive;
     private Long createdTime;
+    private String smsNotification;
+    private CampaignRule campaignRule;
 
     public String getId() {
         return id;
@@ -65,11 +70,11 @@ public class Campaign {
         this.campaignStatus = campaignStatus;
     }
 
-    public String getCampaignRule() {
+    public CampaignRule getCampaignRule() {
         return campaignRule;
     }
 
-    public void setCampaignRule(String campaignRule) {
+    public void setCampaignRule(CampaignRule campaignRule) {
         this.campaignRule = campaignRule;
     }
 
@@ -95,6 +100,14 @@ public class Campaign {
 
     public void setCreatedTime(Long createdTime) {
         this.createdTime = createdTime;
+    }
+
+    public String getSmsNotification() {
+        return smsNotification;
+    }
+
+    public void setSmsNotification(String smsNotification) {
+        this.smsNotification = smsNotification;
     }
 
     @Override

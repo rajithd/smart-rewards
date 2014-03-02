@@ -1,8 +1,10 @@
 package com.cmr.api.service.impl;
 
+import com.cmr.api.dao.CampaignRepository;
 import com.cmr.api.dao.UserAccountRepository;
 import com.cmr.api.dao.config.SecurityConfig;
 import com.cmr.api.service.CampaignManagementService;
+import com.cmr.beans.campaign.Campaign;
 import com.cmr.beans.exeception.APIException;
 import com.cmr.beans.user.UserAccount;
 import com.cmr.util.Constants;
@@ -22,6 +24,8 @@ public class CampaignManagementServiceImpl implements CampaignManagementService 
 
     @Autowired
     private UserAccountRepository userAccountRepository;
+    @Autowired
+    private CampaignRepository campaignRepository;
     @Autowired
     private SecurityConfig securityConfig;
 
@@ -43,6 +47,13 @@ public class CampaignManagementServiceImpl implements CampaignManagementService 
         logger.info("Saving user : [{}]", userAccount.getUsername());
         userAccountRepository.save(userAccount);
 
+    }
+
+    @Override
+    public void saveCampaign(Campaign campaign) throws APIException {
+        logger.info("Trying to save campaign");
+        campaignRepository.save(campaign);
+        logger.info("Saved campaign successfully");
     }
 
     private String hashedPassword(String password){

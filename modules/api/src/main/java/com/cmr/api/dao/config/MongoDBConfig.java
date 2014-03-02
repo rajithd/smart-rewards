@@ -33,6 +33,9 @@ public class MongoDBConfig {
     @Value("${smart.rewards.user-mgt.user.collection.name}")
     private String userCollectionName;
 
+    @Value("${smart.rewards.campaign.collection}")
+    private String campaignCollectionName;
+
     public String getMongoHost() {
         return mongoHost;
     }
@@ -63,5 +66,9 @@ public class MongoDBConfig {
 
     public String getUserCollectionName() {
         return userCollectionName;
+    }
+
+    public String getCampaignCollectionName() {
+        return campaignCollectionName;
     }
 }

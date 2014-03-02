@@ -45,62 +45,59 @@
         <div class="span9">
             <div class="well">
                 <h4>Create Campaign</h4>
-                <form role="form">
+                <form role="form" method="post">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Name</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Campaign Name">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Campaign Name">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Description</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Campaign Description">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" placeholder="Campaign Description">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Start Date</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="01/01/2014">
+                        <label for="startDate">Start Date</label>
+                        <input type="text" class="form-control" id="startDate" name="startDate" placeholder="01/01/2014">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">End Date</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="01/01/2014">
+                        <label for="endDate">End Date</label>
+                        <input type="text" class="form-control" id="endDate" name="endDate" placeholder="01/01/2014">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Winner Selection</label>
+                        <label for="winnerSelection">Winner Selection</label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                            <input type="radio" name="winnerSelectionType"  value="IMMEDIATE" checked>
                             Immediate
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                            <input type="radio" name="winnerSelectionType" value="END_OF_CAMPAIGN">
                             End of the cycle
                         </label>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">Campaign Rule</label>
-                        <select class="form-control">
-                            <option>SMS</option>
-                            <option>Voice Call</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <select class="form-control" name="campaignRule.ruleType">
+                            <option value="SMS">SMS</option>
+                            <option value="VOICE_CALL">Voice Call</option>
                         </select>
 
-                        <select class="form-control">
-                            <option>==</option>
-                            <option>></option>
-                            <option><</option>
-                            <option>>=</option>
-                            <option><=</option>
+                        <select class="form-control" name="campaignRule.conditionString">
+                            <option value="==">==</option>
+                            <option value=">">></option>
+                            <option value="<"><</option>
+                            <option value=">=">>=</option>
+                            <option value="<="><=</option>
                         </select>
-                        <input type="text" class="form-control" id="exampleInputPassword1">
+                        <input type="number" class="form-control" id="campaignRule.count" name="campaignRule.count">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputPassword1">SMS Notification</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Notification Text">
+                        <label for="smsNotification">SMS Notification</label>
+                        <input type="text" class="form-control" name="smsNotification" id="smsNotification" placeholder="Notification Text">
                     </div>
 
 
@@ -139,6 +136,7 @@
 <script src="resources/js/bootstrap-collapse.js"></script>
 <script src="resources/js/bootstrap-carousel.js"></script>
 <script src="resources/js/bootstrap-typeahead.js"></script>
+<script src="resources/js/jqBootstrapValidation.js"></script>
 
 </body>
 </html>

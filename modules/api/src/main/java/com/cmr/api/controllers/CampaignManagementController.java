@@ -1,6 +1,7 @@
 package com.cmr.api.controllers;
 
 import com.cmr.api.service.CampaignManagementService;
+import com.cmr.beans.campaign.Campaign;
 import com.cmr.beans.common.Success;
 import com.cmr.beans.exeception.APIException;
 import com.cmr.beans.user.UserAccount;
@@ -32,6 +33,15 @@ public class CampaignManagementController extends AbstractController {
         logger.info("Processing save user request");
         campaignManagementService.saveUser(userAccount);
         logger.info("Successfully Processed save user request");
+        return new ResponseEntity<Success>(Success.SUCCESS_CODE, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/campaign/save", produces = "application/json")
+    @ResponseBody
+    public ResponseEntity saveCampaign(@RequestBody Campaign campaign) throws APIException {
+        logger.info("Processing save campaign request");
+        campaignManagementService.saveCampaign(campaign);
+        logger.info("Successfully Processed save campaign request");
         return new ResponseEntity<Success>(Success.SUCCESS_CODE, HttpStatus.OK);
     }
 
