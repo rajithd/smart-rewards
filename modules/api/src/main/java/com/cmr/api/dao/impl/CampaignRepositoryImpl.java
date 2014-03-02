@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author : rajith
  */
@@ -22,5 +24,10 @@ public class CampaignRepositoryImpl implements CampaignRepository {
     @Override
     public void save(Campaign campaign) {
         mongoTemplate.save(campaign,mongoDBConfig.getCampaignCollectionName());
+    }
+
+    @Override
+    public List<Campaign> findAll() {
+        return mongoTemplate.findAll(Campaign.class, mongoDBConfig.getCampaignCollectionName());
     }
 }

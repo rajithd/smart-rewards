@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author : rajith
  */
@@ -54,6 +56,11 @@ public class CampaignManagementServiceImpl implements CampaignManagementService 
         logger.info("Trying to save campaign");
         campaignRepository.save(campaign);
         logger.info("Saved campaign successfully");
+    }
+
+    @Override
+    public List<Campaign> findAllCampaign() throws APIException {
+        return campaignRepository.findAll();
     }
 
     private String hashedPassword(String password){

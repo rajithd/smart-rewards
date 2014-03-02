@@ -36,5 +36,6 @@ public interface Constants {
 
     public final static String ESB_SERVICE_CREATE_USER = "esb/user/save";
     public final static String ESB_SERVICE_CREATE_CAMPAIGN = "esb/campaign/save";
+    public final static String ESB_SERVICE_GET_CAMPAIGNS = "esb/campaign/find/all";
 
 }

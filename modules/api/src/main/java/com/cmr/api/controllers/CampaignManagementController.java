@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * @author : rajith
  */
@@ -43,6 +45,13 @@ public class CampaignManagementController extends AbstractController {
         campaignManagementService.saveCampaign(campaign);
         logger.info("Successfully Processed save campaign request");
         return new ResponseEntity<Success>(Success.SUCCESS_CODE, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/campaign/find/all", produces = "application/json")
+    @ResponseBody
+    public List<Campaign> getAllCampaigns() throws APIException {
+        logger.info("Processing get all campaign request");
+        return campaignManagementService.findAllCampaign();
     }
 
 }
