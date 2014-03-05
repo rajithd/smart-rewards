@@ -1,16 +1,24 @@
 package com.cmr.rule.service.impl;
 
+import com.cmr.beans.campaign.Campaign;
 import com.cmr.beans.common.Response;
 import com.cmr.rule.config.RuleRestConfig;
 import com.cmr.rule.service.RuleEngineService;
+import com.cmr.rule.util.DateTypeAdapter;
 import com.cmr.util.Constants;
 import com.cmr.util.JsonConverter;
 import com.cmr.util.UrlHandler;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Type;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -41,5 +49,20 @@ public class RuleEngineServiceImpl implements RuleEngineService {
         Set<String> strings = response.getPayLoad();
         strings.remove(Constants.COLLECTION_SYSTEM_INDEX);
         return strings;
+    }
+
+    @Override
+    public List<Campaign> findAllCampaigns() {
+        logger.info("Try to get all campaigns");
+        String url = UrlHandler.createUrl(Constants.ESB_SERVICE_GET_CAMPAIGNS, ruleRestConfig.getApiHostUrl(), ruleRestConfig.getEsbService());
+        logger.info("Create url  : [{}]", url);
+        String response = restTemplate.getForObject(url, String.class);
+        logger.info("Response : [{}]", response);
+        Type type = new TypeToken<List<Campaign>>() {
+        }.getType();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Date.class, new DateTypeAdapter());
+        Gson gson = gsonBuilder.create();
+        return gson.fromJson(response, type);
     }
 }

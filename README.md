@@ -50,6 +50,20 @@ Ref : https://github.com/rajithd/smart-rewards/blob/master/README.md
 4. Type 1
 5. `cp jssecacerts $JAVA_HOME/jre/lib/security`
 
+# System Setup
+Upload all the component distribution to smart-rewards/distribution. If willing to build the system use the following command.
+1. cd smart-rewards
+2. `mvn clean install -DskipTests`
+
+## 1. ESB Setup(Ultra Esb)
+## 2. Log file simulate
+## 3. Mongo data import (Admin)
+## 4. API component setup
+## 5. Campaign management setup
+## 6. Decoder setup
+## 7. Rule engine setup
+
+
 
 
 

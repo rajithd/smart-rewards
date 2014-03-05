@@ -57,8 +57,8 @@
                         <tr>
                             <td><c:out value="${campaign.name}"/></td>
                             <td><c:out value="${campaign.description}"/></td>
-                            <td><c:out value="${campaign.startDate}"/></td>
-                            <td><c:out value="${campaign.endDate}"/></td>
+                            <td><c:out value="${campaign.startDateStr}"/></td>
+                            <td><c:out value="${campaign.endDateStr}"/></td>
                             <td><c:out value="${campaign.winnerSelectionType}"/></td>
                         </tr>
                     </c:forEach>

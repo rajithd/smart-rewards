@@ -21,6 +21,8 @@ public class Campaign {
     private Long createdTime;
     private String smsNotification;
     private CampaignRule campaignRule;
+    private String startDateStr;
+    private String endDateStr;
 
     public String getId() {
         return id;
@@ -108,6 +110,22 @@ public class Campaign {
 
     public void setSmsNotification(String smsNotification) {
         this.smsNotification = smsNotification;
+    }
+
+    public String getStartDateStr() {
+        return startDateStr;
+    }
+
+    public void setStartDateStr(String startDateStr) {
+        this.startDateStr = startDateStr;
+    }
+
+    public String getEndDateStr() {
+        return endDateStr;
+    }
+
+    public void setEndDateStr(String endDateStr) {
+        this.endDateStr = endDateStr;
     }
 
     @Override
