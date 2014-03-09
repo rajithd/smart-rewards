@@ -1,0 +1,15 @@
+[
+    {
+        "_id": {
+            "$oid": "52fe9335e4b05bf30e2611e9"
+        },
+        "_class": "com.cmr.beans.user.UserAccount",
+        "username": "admin",
+        "password": "81dc9bdb52d04dc20036dbd8313ed055",
+        "userType": "ADMIN",
+        "roles": [
+            "ROLE_ADMIN",
+            "ROLE_MANAGER"
+        ]
+    }
+]

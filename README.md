@@ -43,6 +43,10 @@ Ref : https://github.com/rajithd/smart-rewards/blob/master/README.md
     `chmod 776 setup-mongo.sh`
     `./setup-mongo.sh`
 
+    To create admin account
+    `mongoimport --db rewards --collection users --file distribution/mongo-user.json --jsonArray`
+    This will create admin/1234 user account for campaign management UI.
+
 ## 4. Generate Java Keystore
 1. `cd smart-rewards/distribution/keystore`
 2. `javac InstallCert.java`
@@ -56,17 +60,48 @@ Upload all the component distribution to smart-rewards/distribution. If willing 
 2. `mvn clean install -DskipTests`
 
 ## 1. ESB Setup(Ultra Esb)
+    untar the ultra-esb by tar -zxvf distribution/ultra-esb.tar.gz
+    cd ultra-esb/bin
+    ./ultraesb.sh to start the esb server.
+
 ## 2. Log file simulate
-## 3. Mongo data import (Admin)
-## 4. API component setup
-## 5. Campaign management setup
-## 6. Decoder setup
-## 7. Rule engine setup
+    Since we don't have real CDR files we can use the simulators to generate.
+    1. Create ftp folder in home directory.
+        cd smart-rewards/distribution
+        ./create-ftp-folder.sh
+        
+    2. cd smart-rewards/simulators
+        cd sms_cdr
+        perl sms_log_generator.pl
+        Give number of records to generate (Tested with 100,000)
+        Path to file shoud be ~/ftp/sms/source/sms-cdrlog1
+        Give 1 
 
-
-
-
-
-
-
-
+## 3. API component setup
+    1. cp smart-rewards/distribution/components/api.war <path-to-tomcat>/webapps
+## 4. Campaign management setup
+    1. cp smart-rewards/distribution/components/campaign-management.war <path-to-tomcat>/webapps 
+    2. Start tomcat 
+    3. http://localhost:8080/campaign-management/login (admin/1234)
+## 5. Decoder setup
+    1. unzip smart-rewards/distribution/components/decoder.zip
+    2. cd decoder
+    3. vi conf/decoder.properties
+    4. Changes folder path to appopriate paths
+    5. cd bin
+    6. `./decoder console` to start in console or `./decoder start` to start in background
+## 6. Rule engine setup
+    1. unzip smart-rewards/distribution/components/rule-engine.zip
+    2. cd rule-engine
+    3. vi conf/rule-engine.properties 
+    4. change email.recipient email address. This email will receive the winners phone numbers.
+    3. cd bin
+    4. `./rule-engine console` to start in console or `./rule-engine start` to start in background
+    
+# How to create a campaign
+1. Before creating a campagin decoder needs to run sucessfully. It will decode any CDR log files and upload in mongo repository.
+2. Then http://localhost:8080/campaign-management/login with admin/1234
+3. Click create-campaign link locate in left side bar.
+4. Fill up with fields. Please note start date and end date are crucial. So fill start date as today and end date as 1 month ahead. (use > sign)
+5. Then run rule engine. Before that make sure all the hadoop and hive processes are running. Use jps to verify.
+6. If winners found it will email to give mail address.
