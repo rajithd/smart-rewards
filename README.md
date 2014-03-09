@@ -1,5 +1,7 @@
 Ref : https://github.com/rajithd/smart-rewards/blob/master/README.md
 
+### Please check https://github.com/rajithd/smart-rewards/blob/master/Design-patterns.md for design patterns used in this project.
+--
 # Components
 1. Campaign-management UI (war)
 2. Decoder - Standalone
