@@ -23,6 +23,11 @@ public interface Constants {
     public final static String COLLECTION_CLASS_ID_NAME = "_id";
     public final static String COLLECTION_CLASS_ID_NEW_NAME = "id";
 
+    public final static String COLLECTION_SMS_NAME = "sms";
+    public final static String COLLECTION_VOICE_CALL_NAME = "voiceCall";
+    public final static String COLLECTION_ACTIVATION_NAME = "activation";
+    public final static String COLLECTION_REGISTRATON_NAME = "registration";
+
 
     /**
      * Auth related constants

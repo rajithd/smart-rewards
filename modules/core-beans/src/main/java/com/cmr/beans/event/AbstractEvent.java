@@ -6,8 +6,8 @@ package com.cmr.beans.event;
 public abstract class AbstractEvent {
 
     private String id;
-    private String callerId;
-    private String calleeId;
+    private String caller;
+    private String callee;
     private String userId;
     private Integer evenYear;
     private Integer eventMonth;
@@ -107,28 +107,28 @@ public abstract class AbstractEvent {
         this.destinationZoneCode = destinationZoneCode;
     }
 
-    public String getCallerId() {
-        return callerId;
+    public String getCaller() {
+        return caller;
     }
 
-    public void setCallerId(String callerId) {
-        this.callerId = callerId;
+    public void setCaller(String caller) {
+        this.caller = caller;
     }
 
-    public String getCalleeId() {
-        return calleeId;
+    public String getCallee() {
+        return callee;
     }
 
-    public void setCalleeId(String calleeId) {
-        this.calleeId = calleeId;
+    public void setCallee(String callee) {
+        this.callee = callee;
     }
 
     @Override
     public String toString() {
         return "AbstractEvent{" +
                 "id='" + id + '\'' +
-                ", callerId='" + callerId + '\'' +
-                ", calleeId='" + calleeId + '\'' +
+                ", caller='" + caller + '\'' +
+                ", callee='" + callee + '\'' +
                 ", userId='" + userId + '\'' +
                 ", evenYear=" + evenYear +
                 ", eventMonth=" + eventMonth +

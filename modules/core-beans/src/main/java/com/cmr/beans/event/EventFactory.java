@@ -11,8 +11,8 @@ public final class EventFactory {
     public static AbstractEvent buildEventWithValues(EventTypeEnum event, String[] columnValues){
         AbstractEvent abstractEvent = buildEvent(event);
         abstractEvent.setId(columnValues[0]);
-        abstractEvent.setCallerId(columnValues[1]);
-        abstractEvent.setCalleeId(columnValues[2]);
+        abstractEvent.setCaller(columnValues[1]);
+        abstractEvent.setCallee(columnValues[2]);
 
         //TODO fill values
         return abstractEvent;

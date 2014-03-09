@@ -18,17 +18,32 @@ public class HiveTableImporter {
 
     private final static org.slf4j.Logger logger = LoggerFactory.getLogger(HiveTableImporter.class);
 
-    public void dropAndImportDataIntoTable(Connection hiveConnection, String tableName, Set<String> columns) throws SQLException {
+    public void importDataIntoTable(Connection hiveConnection, String tableName, Set<String> columns) throws SQLException {
         logger.info("Try to drop and create hive table : [{}]", tableName);
-        dropHiveTable(hiveConnection, tableName);
+        if(isTableExists(hiveConnection, tableName)){
+            logger.info("Table [{}] already exists in hive. returning", tableName);
+            return;
+        }
         createAndImportDataToHiveTable(hiveConnection, tableName, columns);
     }
 
-    private void dropHiveTable(Connection hiveCon, String tableName) throws SQLException {
-        Statement dropStmt = hiveCon.createStatement();
-        dropStmt.execute("drop table " + tableName);
-        dropStmt.close();
-        logger.info("Successfully drop table : [{}]", tableName);
+    private boolean isTableExists(Connection hiveCon, String tableName) throws SQLException {
+        List<String> allTablesInHive = findAllTablesInHive(hiveCon);
+        if (allTablesInHive.contains(tableName)) {
+            return true;
+        }
+        return false;
+    }
+
+    private List<String> findAllTablesInHive(Connection hiveCon) throws SQLException {
+        List<String> tables = new ArrayList<String>();
+        Statement statement = hiveCon.createStatement();
+        ResultSet resultSet = statement.executeQuery("show tables");
+        while (resultSet.next()) {
+            tables.add(resultSet.getString("tab_name"));
+        }
+        statement.close();
+        return tables;
     }
 
     private void createAndImportDataToHiveTable(Connection hiveCon, String tableName, Set<String> columns) throws SQLException {
@@ -51,7 +66,7 @@ public class HiveTableImporter {
         }
         hiveDDLBuilder.append(")");
         hiveDDLBuilder.append(" STORED BY \"com.mongodb.hadoop.hive.MongoStorageHandler\" ");
-        hiveDDLBuilder.append(" WITH SERDEPROPERTIES('mongo.columns.mapping'=' "+colMappingJson+" ')");
+        hiveDDLBuilder.append(" WITH SERDEPROPERTIES('mongo.columns.mapping'=' " + colMappingJson + " ')");
         hiveDDLBuilder.append(" TBLPROPERTIES ( \"mongo.uri\" =  ");
         hiveDDLBuilder.append("'" + mongoUri + "')");
 
@@ -71,13 +86,13 @@ public class HiveTableImporter {
     private String mapColumnsToHive(List<String> columns) {
         StringBuilder colMapperString = new StringBuilder();
         colMapperString.append("{");
-        colMapperString.append("\"" +"id"+ "\""+":"+"\"" +"_id"+ "\""+",");
+        colMapperString.append("\"" + "id" + "\"" + ":" + "\"" + "_id" + "\"" + ",");
         int i = 0;
         for (; i < columns.size(); i++) {
-            if(Constants.COLLECTION_CLASS_ID_NEW_NAME.equals(columns.get(i)) || Constants.COLLECTION_CLASS_COL_NAME.equals(columns.get(i))){
+            if (Constants.COLLECTION_CLASS_ID_NEW_NAME.equals(columns.get(i)) || Constants.COLLECTION_CLASS_COL_NAME.equals(columns.get(i))) {
                 continue;
             }
-            colMapperString.append("\"" +columns.get(i)+ "\"" + ":" + "\"" +columns.get(i)+ "\"");
+            colMapperString.append("\"" + columns.get(i) + "\"" + ":" + "\"" + columns.get(i) + "\"");
             if (i < columns.size() - 1) {
                 colMapperString.append(",");
             }

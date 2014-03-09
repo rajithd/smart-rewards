@@ -55,11 +55,11 @@
                         <input type="text" class="form-control" id="description" name="description" placeholder="Campaign Description">
                     </div>
                     <div class="form-group">
-                        <label for="startDate">Start Date</label>
+                        <label for="startDate">Start Date (dd/MM/yyyy)</label>
                         <input type="text" class="form-control" id="startDate" name="startDate" placeholder="01/01/2014">
                     </div>
                     <div class="form-group">
-                        <label for="endDate">End Date</label>
+                        <label for="endDate">End Date (dd/MM/yyyy)</label>
                         <input type="text" class="form-control" id="endDate" name="endDate" placeholder="01/01/2014">
                     </div>
                     <div class="form-group">

@@ -4,7 +4,6 @@ import com.cmr.rule.config.RuleRestConfig;
 import com.cmr.rule.scheduler.RuleJobScheduler;
 import com.cmr.rule.service.RuleEngineService;
 import com.cmr.rule.service.TableImporterCallable;
-import com.cmr.util.Constants;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
@@ -39,14 +38,14 @@ public class HiveTableImporterScheduler implements RuleJobScheduler {
         logger.info("==============================================");
 
         Set<String> collectionNames = ruleEngineService.getAllCollectionNames();
-        if (collectionNames.isEmpty()){
+        if (collectionNames.isEmpty()) {
             logger.warn("Collection names null. Returning without creating tables in hive");
             return;
         }
         logger.info("Found [{}] number of collection names", collectionNames.size());
         CountDownLatch countDownLatch = new CountDownLatch(collectionNames.size());
-        for (String collectionName : collectionNames){
-            TableImporterCallable tableImporterCallable = new TableImporterCallable(hiveDataSource,ruleRestConfig,restTemplate,collectionName,countDownLatch);
+        for (String collectionName : collectionNames) {
+            TableImporterCallable tableImporterCallable = new TableImporterCallable(hiveDataSource, ruleRestConfig, restTemplate, collectionName, countDownLatch);
             executorService.submit(tableImporterCallable);
         }
 
@@ -56,6 +55,5 @@ public class HiveTableImporterScheduler implements RuleJobScheduler {
         logger.info("==============================================");
 
     }
-
 
 }

@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.Type;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +49,19 @@ public class RuleEngineServiceImpl implements RuleEngineService {
         }
         Set<String> strings = response.getPayLoad();
         strings.remove(Constants.COLLECTION_SYSTEM_INDEX);
-        return strings;
+        Set<String> finalSet = new HashSet<String>();
+        for (String collection : strings){
+            if(isValidCollection(collection)){
+                finalSet.add(collection);
+            }
+        }
+        return finalSet;
+    }
+
+    private boolean isValidCollection(String tableName) {
+        return Constants.COLLECTION_SMS_NAME.equals(tableName) ||
+                Constants.COLLECTION_ACTIVATION_NAME.equals(tableName) || Constants.COLLECTION_VOICE_CALL_NAME.equals(tableName)
+                || Constants.COLLECTION_REGISTRATON_NAME.equals(tableName);
     }
 
     @Override
