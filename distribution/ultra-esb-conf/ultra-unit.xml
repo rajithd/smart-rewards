@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+***********************************************************************************************************************
+
+    NOTE: This is the "default" deployment unit of the UltraESB, where the ESB can have any number of deployment units.
+    These deployment units placed under the conf/deployments directory, mainly defines proxy services, sequences and
+    endpoints, however it is also possible to include generic spring beans used by these elements in this spring
+    configuration file, all of which maybe loaded / unloaded at runtime dynamically
+
+    This defines two very simple services as basic examples. Refer the screen casts and other documented articles
+    found from http://docs.adroitlogic.org for simple or advanced configuration examples
+
+***********************************************************************************************************************
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:u="http://www.adroitlogic.org/ultraesb"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.adroitlogic.org/ultraesb http://schemas.ultraesb.org/ultraesb-2.0.xsd">
+
+    <u:proxy id="esb/replicate/sms">
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/replicate/sms</u:address>
+            </u:inDestination>
+
+
+            <u:outSequence>
+                <u:java><![CDATA[
+                        System.out.println("Reply payload : " + mediation.readPayloadAsString(msg));
+                    ]]></u:java>
+            </u:outSequence>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+
+    <u:proxy id="esb/replicate/voice/call">
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/replicate/voice/call</u:address>
+            </u:inDestination>
+
+
+            <u:outSequence>
+                <u:java><![CDATA[
+                        System.out.println("Reply payload : " + mediation.readPayloadAsString(msg));
+                    ]]></u:java>
+            </u:outSequence>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+
+    <u:proxy id="esb/replicate/activation">
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/replicate/activation</u:address>
+            </u:inDestination>
+
+
+            <u:outSequence>
+                <u:java><![CDATA[
+                        System.out.println("Reply payload : " + mediation.readPayloadAsString(msg));
+                    ]]></u:java>
+            </u:outSequence>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+
+    <!--Rule engine related proxies-->
+    <u:proxy id="esb/get/collection/names">
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/rule/collection/names</u:address>
+            </u:inDestination>
+
+
+            <u:outSequence>
+                <u:java><![CDATA[
+                        System.out.println("Reply payload : " + mediation.readPayloadAsString(msg));
+                    ]]></u:java>
+            </u:outSequence>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+
+    <u:proxy id="getCollectionColumnsByName/sms">
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/rule/collection/columns/sms</u:address>
+            </u:inDestination>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+
+    <u:proxy id="getCollectionColumnsByName/voiceCall">
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/rule/collection/columns/voiceCall</u:address>
+            </u:inDestination>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+
+    <u:proxy id="getCollectionColumnsByName/activation">
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/rule/collection/columns/activation</u:address>
+            </u:inDestination>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+
+    <u:proxy id="getCollectionColumnsByName/registration">
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/rule/collection/columns/registration</u:address>
+            </u:inDestination>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+
+    <!--Campaign management proxies-->
+    <u:proxy id="esb/user/save">
+        <!--<u:transport id="http-8280"/>-->
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/user/save</u:address>
+            </u:inDestination>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+
+    <u:proxy id="esb/campaign/save">
+        <!--<u:transport id="http-8280"/>-->
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/campaign/save</u:address>
+            </u:inDestination>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+
+    <u:proxy id="esb/campaign/find/all">
+        <!--<u:transport id="http-8280"/>-->
+        <u:transport id="https-8443"/>
+        <u:target>
+
+            <u:inDestination>
+                <u:address>http://localhost:8080/api/campaign/find/all</u:address>
+            </u:inDestination>
+
+            <u:outSequence>
+                <u:java><![CDATA[
+                        System.out.println("Reply payload : " + mediation.readPayloadAsString(msg));
+                    ]]></u:java>
+            </u:outSequence>
+
+            <u:outDestination>
+                <u:address type="response"/>
+            </u:outDestination>
+        </u:target>
+    </u:proxy>
+</beans>
